@@ -7,10 +7,9 @@ import time
 import requests
 import telegram
 from exceptions import (IsNot200Error,
-    EmptyListError,
-    UndocumentedStatusError,
-    RequestError
-)
+                        EmptyListError,
+                        UndocumentedStatusError,
+                        RequestError)
 from dotenv import load_dotenv
 
 load_dotenv()
