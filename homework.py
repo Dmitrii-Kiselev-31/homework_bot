@@ -32,8 +32,7 @@ logging.basicConfig(
     ],
     format='%(asctime)s, %(levelname)s, %(message)s,'
     ' %(name)s, %(funcName)s, %(module)s, %(lineno)d',
-    level=logging.INFO
-    )
+    level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
