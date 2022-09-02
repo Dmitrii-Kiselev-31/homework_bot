@@ -35,11 +35,11 @@ def send_message(bot, message):
     try:
         bot.send_message(chat_id, text=message)
     except telegram.error.Unauthorized as error:
-        raise telegram.error.Unauthorized(
+        logger.error(
             f'Сообщение в Telegram не отправлено, ошибка авторизации {error}.'
         )
     except telegram.error.TelegramError as error:
-        raise telegram.error.TelegramError(
+        logger.error(
             f'Сообщение в Telegram не отправлено {error}'
         )
     else:
@@ -58,7 +58,6 @@ def get_api_answer(current_timestamp):
         logger.info('Начата проверка запроса к API сервису')
         response = requests.get(**requests_params)
     except exceptions.RequestError as err:
-        logger.error(f'Ошибка при запросе к основному API:{err}')
         raise exceptions.RequestError(
             f'Ошибка при запросе к основному API:{err}'
         )
@@ -96,12 +95,10 @@ def check_response(response):
         raise KeyError(
             f'Ошибка доступа по ключу homeworks или response: {e}'
         )
-    if homeworks == 0:
-        raise IndexError('Список домашних работ пуст')
     if not isinstance(homeworks, list):
         raise TypeError(
             'Данные не читаемы')
-    if homeworks == []:
+    if not homeworks:
         raise exceptions.EmptyListError(
             'Обновлений пока что нет, ждем следующий запрос'
         )
